@@ -5,37 +5,24 @@ unsigned int faStr1(const char *str) {
     unsigned int count = 0;
     bool inWord = false;
     bool containsDigit = false;
-    if (str == nullptr || strlen(str) == 0)
-    {
+    if (str == nullptr || strlen(str) == 0) {
         return 0;
     }
-    while (*str)
-    {
-        if (std::isspace(*str))
-        {
-            if (inWord && !containsDigit)
-            {
-                count++;
-            }
-            inWord = false;
+    while (*str) {
+        if (!std::isspace(*str) && !inWord) {
+            count++;
+            inWord = true;
             containsDigit = false;
         }
-        else
-        {
-            if (!inWord)
-            {
-                inWord = true;
-            }
-            if (std::isdigit(*str))
-            {
-                containsDigit = true;
-            }
+        if (std::isdigit(*str) && !containsDigit) {
+            count--;
+            containsDigit = true;
         }
+        if (std::isspace(*str) && inWord) {
+            containsDigit = false;
+            inWord = false;
+        }     
         str++;
-    }
-    if (inWord && !containsDigit)
-    {
-        count++;
     }
     return count;
 }
@@ -48,42 +35,47 @@ unsigned int faStr2(const char *str) {
         return 0;
     }
     while (*str) {
-        if (std::isspace(*str)) {
-            if (inWord && validWord) {
-                count++;
-            }
+        if(std::isspace(*str) && inWord) {
+            validWord = false;
             inWord = false;
+        }
+        else if (!std::islower(*str) && validWord) {
+            count--;
             validWord = false;
         }
-        else {
-            if (!inWord) {
-                inWord = true;
-                if (std::isupper(*str) && (*str >= 'A' && *str <= 'Z')) {
-                    validWord = true;
-                }
-                else {
-                    validWord = false;
-                }
-            }
-            else {
-                if (validWord) {
-                    if (std::islower(*str) && (*str >= 'a' && *str <= 'z')) {
-
-                    }
-                    else {
-                        validWord = false;
-                    }
-                }
-            }
+        else if (!inWord && std::isupper(*str)) {
+            count++;
+            inWord = true;
+            validWord = true;
         }
         str++;
-    }
-    if (inWord && validWord) {
-        count++;
     }
     return count;
 }
 
 unsigned int faStr3(const char *str) {
-    return 0;
+    unsigned int count = 0;
+    unsigned int lenWords = 0;
+    bool inWord = false;
+    if (str == nullptr || strlen(str) == 0) {
+        return 0;
+    }
+    while (*str) {
+        if (std::isspace(*str) && inWord) {
+            inWord = false;
+        }
+        else if (!std::isspace(*str) && !inWord) {
+            inWord = true;
+            count++;
+            lenWords++;
+        }
+        else if (!std::isspace(*str) && inWord) {
+            lenWords++;
+        }          
+        str++;
+    }
+    if (count==0) {
+        return 0;
+    }
+    return static_cast<unsigned int>(std::round(static_cast<double>(lenWords) / count));
 }
