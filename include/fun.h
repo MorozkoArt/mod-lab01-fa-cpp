@@ -2,11 +2,13 @@
 #ifndef INCLUDE_FUN_H_
 #define INCLUDE_FUN_H_
 
-#include <cstring> 
+#include <cstring>
 
 #include <cctype>
 
-#include <cmath>  
+#include <cmath>
+
+#include <iostream>
 
 unsigned int faStr1(const char *str);
 unsigned int faStr2(const char *str);
