@@ -5,9 +5,6 @@ unsigned int faStr1(const char *str) {
     unsigned int count = 0;
     bool inWord = false;
     bool containsDigit = false;
-    if (str == nullptr || strlen(str) == 0) {
-        return 0;
-    }
     while (*str) {
         if (!std::isspace(*str) && !inWord) {
             count++;
@@ -31,9 +28,6 @@ unsigned int faStr2(const char *str) {
     unsigned int count = 0;
     bool inWord = false;
     bool validWord = false;
-    if (str == nullptr || strlen(str) == 0) {
-        return 0;
-    }
     while (*str) {
         if (std::isspace(*str) && inWord) {
             validWord = false;
@@ -55,9 +49,6 @@ unsigned int faStr3(const char *str) {
     unsigned int count = 0;
     unsigned int lenWords = 0;
     bool inWord = false;
-    if (str == nullptr || strlen(str) == 0) {
-        return 0;
-    }
     while (*str) {
         if (std::isspace(*str) && inWord) {
             inWord = false;
